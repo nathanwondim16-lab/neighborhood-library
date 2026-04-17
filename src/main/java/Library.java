@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class Library {
-    public static void main(String[] args) {
+    static final char[] spinner = {'⠋','⠙','⠹','⠸','⠼','⠴','⠦','⠧','⠇','⠏'}; // Loading bar generated with assistance from ChatGPT (OpenAI)
+    public static void main(String[] args) throws InterruptedException {
         Book[][] inventory = {
                 {new Book(1, "978-0061120084", "To Kill a Mockingbird")},
                 {new Book(2,  "978-0451524935", "1984")},
@@ -29,34 +30,56 @@ public class Library {
 
         // Welcome message
         System.out.println("Welcome to Sno-Isle Libraries");
-        String userChoice;
+        int userChoice;
 
         do {
-            System.out.println("HomePage: ");
             System.out.println("-----------------------------------");
-            System.out.println("Show Available Books");
-            System.out.println("Show Checked Out Books");
-            System.out.println("Exit - closes out of the application");
+            System.out.println("1) Show Available Books");
+            System.out.println("2) Show Checked Out Books");
+            System.out.println("3) Exit");
             System.out.println("-----------------------------------");
-            System.out.print("\n\n Select an option: ");
-            userChoice = scanner.nextLine();
-        } while(!userChoice.equalsIgnoreCase("Exit"));
+            System.out.print("\n\nSelect an option: ");
+            userChoice = Integer.parseInt(scanner.nextLine());
 
-        displayAvailableBooks(inventory);
+            switch(userChoice) {
+                case 1:
+                    for(int i = 0; i < 100; i++) {
+                        char frame = spinner[i % spinner.length];
+                        System.out.print("\rLoading " + frame);
+                        Thread.sleep(50);
+                    }
+                    System.out.print("\r "); // Removes previous loading bar
+                    displayAvailableBooks(inventory);
+                    break;
+                case 2:
+                    //displayCheckedOutBooks(inventory); Method has no implementation yet
+                    break;
+                case 3:
+                    System.out.println("\nGoodbye for now 👋🏾");
+                    break;
+            }
+        } while(userChoice != 3);
+
+
 
     }
 
 
     public static void displayAvailableBooks(Book[][] bookInventory) {
+        System.out.println();
+        System.out.println("Books Available to be checked out: ");
         for(Book[] books : bookInventory) {
             for(Book book : books) {
-                System.out.println(book);
+                if(!book.isCheckedOut()) {
+                    System.out.println(book);
+                }
+
             }
         }
 
     }
 
-    public static void displayCheckedOutBooks(Book book) {
+    public static void displayCheckedOutBooks(Book[][] bookInventory) {
 
     }
 
