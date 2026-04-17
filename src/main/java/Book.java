@@ -7,13 +7,17 @@ public class Book {
 
     // Default constructor
     public Book() {
-
+        id = 0;
+        isbn = null;
+        title = null;
+        isCheckedOut = false;
+        checkedOutTo = null;
     }
 
     public Book(int bookId, String bookIsbn, String bookTitle) {
-        this.id = bookId;
-        this.title = bookTitle;
-        this.isbn = bookIsbn;
+        id = bookId;
+        title = bookTitle;
+        isbn = bookIsbn;
         this.isCheckedOut = false;
         this.checkedOutTo = "";
     }
