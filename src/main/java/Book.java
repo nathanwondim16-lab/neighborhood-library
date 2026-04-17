@@ -7,11 +7,7 @@ public class Book {
 
     // Default constructor
     public Book() {
-        id = 0;
-        isbn = null;
-        title = null;
-        isCheckedOut = false;
-        checkedOutTo = null;
+        
     }
 
     public Book(int bookId, String bookIsbn, String bookTitle) {
