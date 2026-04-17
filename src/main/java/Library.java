@@ -1,6 +1,9 @@
 import java.util.Scanner;
 public class Library {
+    //Loading bar
     static final char[] loadingBar = {'⠋','⠙','⠹','⠸','⠼','⠴','⠦','⠧','⠇','⠏'}; // Loading bar generated with assistance from ChatGPT (OpenAI)
+
+    // Book inventory
     static Book[][] inventory = {
             {new Book(1, "978-0061120084", "To Kill a Mockingbird")},
             {new Book(2,  "978-0451524935", "1984")},
@@ -22,10 +25,11 @@ public class Library {
             {new Book(18, "978-0316769488", "The Catcher in the Rye")},
             {new Book(19, "978-0060850524", "Fahrenheit 451")},
             {new Book(20, "978-0061122415", "Animal Farm")},
-
     };
+
     public static void main(String[] args) throws InterruptedException {
 
+        // Creating scanner object to get user input.
         Scanner scanner = new Scanner(System.in);
 
         // Welcome message
@@ -39,7 +43,7 @@ public class Library {
             System.out.println("3) Exit");
             System.out.println("-----------------------------------");
             System.out.print("\n\nSelect an option: ");
-            userChoice = Integer.parseInt(scanner.nextLine());
+            userChoice = Integer.parseInt(scanner.nextLine()); // Stores the option the user selected
 
             switch(userChoice) {
                 case 1:
@@ -61,7 +65,7 @@ public class Library {
                 if(checkInBook.equalsIgnoreCase("yes")) {
                     System.out.println("Please provide the following details: ");
                     System.out.print("Book ID: ");
-                    int id = scanner.nextInt();
+                    int id = scanner.nextInt(); // stores the ID of the book
                     scanner.nextLine();
                     checkout(id); // passes in the ID of the book the user wants to checkout
                     // Add code that adds that book they checked in back into the inventory array.
@@ -73,7 +77,7 @@ public class Library {
 
     }
 
-
+    // Displays available books
     public static void displayAvailableBooks() {
         System.out.println();
         System.out.println("Books Available to be checked out: ");
@@ -87,6 +91,7 @@ public class Library {
         }
     }
 
+    // Displays books that are checked out
     public static void displayCheckedOutBooks(Book[][] bookInventory) {
         System.out.println();
         System.out.println("Books that are checked out: \n");
@@ -100,6 +105,7 @@ public class Library {
         }
     }
 
+    // Checkout process
     public static void checkout(int bookId) {
         for(int i = 0; i < inventory.length; i++) {
             for(int j = 0; j < inventory[i].length; j++) {
@@ -111,6 +117,7 @@ public class Library {
     }
 
 
+    // Displays the loading bar when generating information.
     public static void loading() throws InterruptedException {
         for(int i = 0; i < 100; i++) {
             char spinner = loadingBar[i % loadingBar.length]; // Resets back to the first element in the "loadingBar" array
@@ -119,6 +126,4 @@ public class Library {
         }
         System.out.print("\r "); // Removes previous loading bar
     }
-
-
 }

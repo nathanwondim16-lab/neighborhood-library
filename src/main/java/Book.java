@@ -68,7 +68,6 @@ public class Book {
         isCheckedOut = false;
     }
 
-    @Override
     public String toString() {
         return "Book ID: " + id + "| ISBN: " + isbn + "| Title: " + title;
     }
