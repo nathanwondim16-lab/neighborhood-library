@@ -31,11 +31,6 @@ public class Library {
             {new Book(20, "978-0061122415", "\033[1m\033[4mAnimal Farm\033[0m")},
     };
 
-    static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-    static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("h:mma");
-    static LocalDate date = LocalDate.now();
-    static LocalTime time = LocalTime.now();
-
     public static void main(String[] args) throws InterruptedException {
 
         // Creating scanner object to get user input.
@@ -98,8 +93,13 @@ public class Library {
 
     // Displays books that are checked out
     public static void displayCheckedOutBooks(Book[][] bookInventory) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("h:mma");
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+
         System.out.println();
-        System.out.println("Books that are checked out: \n");
+        System.out.println("Checked out books: \n");
         for(Book[] books : inventory) {
             for(Book book : books) {
                 if(book.getIsCheckedOut()) {
@@ -123,9 +123,8 @@ public class Library {
             for (Book book : books) {
                 if (book.getId() == bookID && !book.getIsCheckedOut()) {
                     book.checkOut(name);
-//                } else if (book.getIsCheckedOut()) {
-//                    System.out.println("\nSorry, this book has been checked out by someone else");
-//                    break;
+                } else if (book.getId() == bookID && book.getIsCheckedOut()) {
+                    System.out.println("\nSorry, this book has been checked out by someone else");
                 }
             }
         }
