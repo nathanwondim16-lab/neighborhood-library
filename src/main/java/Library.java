@@ -62,10 +62,11 @@ public class Library {
                     break;
                 case 3:
                     loading();
-                    checkout();
+                    checkOut();
                     break;
                 case 4:
-                    // Add check in method here
+                    loading();
+                    checkIn();
                     break;
                 case 5:
                     System.out.println("\nGoodbye for now 👋🏾");
@@ -99,7 +100,7 @@ public class Library {
         LocalTime time = LocalTime.now();
 
         System.out.println();
-        System.out.println("Checked out books: \n");
+        System.out.println("Checked out books: \n"); // Add a message to let users know there aren't any books that have been checked out.
         for(Book[] books : inventory) {
             for(Book book : books) {
                 if(book.getIsCheckedOut()) {
@@ -111,9 +112,9 @@ public class Library {
     }
 
     // Checkout process
-    public static void checkout() {
+    public static void checkOut() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please provide the following details: ");
+        System.out.println("Please provide the following details of the book you wish to check out: ");
         System.out.print("Book ID: ");
         int bookID = scanner.nextInt();
         scanner.nextLine();
@@ -130,9 +131,24 @@ public class Library {
         }
     }
 
-//    public static void checkIn() {
-//
-//    }
+    public static void checkIn() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please provide the following details of the book you wish to check in: ");
+        System.out.print("Book ID: ");
+        int bookID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Your name: ");
+        String name = scanner.nextLine();
+        System.out.println();
+        for(Book[] books : inventory) {
+            for(Book book : books) {
+                if(book.getId() == bookID && book.getCheckedOutTo().equalsIgnoreCase(name)) {
+                    book.checkIn();
+                    System.out.println("Thank you for returning the book 😊");
+                }
+            }
+        }
+    }
 
     // Displays the loading bar when generating information.
     public static void loading() throws InterruptedException {
