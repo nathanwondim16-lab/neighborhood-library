@@ -87,7 +87,6 @@ public class Library {
                 if(!book.getIsCheckedOut()) {
                     System.out.println(book);
                 }
-
             }
         }
     }
@@ -100,14 +99,21 @@ public class Library {
         LocalTime time = LocalTime.now();
 
         System.out.println();
-        System.out.println("Checked out books: \n"); // Add a message to let users know there aren't any books that have been checked out.
+        boolean isFound = false;
         for(Book[] books : inventory) {
             for(Book book : books) {
                 if(book.getIsCheckedOut()) {
+                    if(!isFound) {
+                        System.out.println("Checked out books: \n");
+                    }
+                    isFound = true; // Only want to print "Checked out books" once if one more books have been checked out
+                    // .
                     System.out.println(book + " ----> CHECKED OUT on " + date.format(dateFormat) + " at " + time.format(timeFormat) + " by " + book.getCheckedOutTo());
                 }
-
             }
+        }
+        if(!isFound) {
+            System.out.println("No books are currently checked out");
         }
     }
 
@@ -120,6 +126,10 @@ public class Library {
         scanner.nextLine();
         System.out.print("Your name: ");
         String name = scanner.nextLine();
+        if(bookID > inventory.length) {
+            System.out.println("\nWe don't have any books with " + bookID + " as its ID.");
+            System.out.println("Please enter in a valid ID next time.");
+        }
         for (Book[] books : inventory) {
             for (Book book : books) {
                 if (book.getId() == bookID && !book.getIsCheckedOut()) {
