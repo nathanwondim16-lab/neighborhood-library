@@ -1,4 +1,7 @@
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Scanner;
 public class Library {
     //Loading bar
@@ -27,6 +30,11 @@ public class Library {
             {new Book(19, "978-0060850524", "\033[1m\033[4mFahrenheit 451\033[0m")},
             {new Book(20, "978-0061122415", "\033[1m\033[4mAnimal Farm\033[0m")},
     };
+
+    static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("h:mma");
+    static LocalDate date = LocalDate.now();
+    static LocalTime time = LocalTime.now();
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -95,7 +103,7 @@ public class Library {
         for(Book[] books : inventory) {
             for(Book book : books) {
                 if(book.getIsCheckedOut()) {
-                    System.out.println(book + " ----> CHECKED OUT on " + LocalDate.now()); // Consider adding the name of the person who checked out that book.
+                    System.out.println(book + " ----> CHECKED OUT on " + date.format(dateFormat) + " at " + time.format(timeFormat) + " by " + book.getCheckedOutTo());
                 }
 
             }
@@ -108,20 +116,24 @@ public class Library {
         System.out.println("Please provide the following details: ");
         System.out.print("Book ID: ");
         int bookID = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Your name: ");
         String name = scanner.nextLine();
-        scanner.nextLine();
         for (Book[] books : inventory) {
             for (Book book : books) {
                 if (book.getId() == bookID && !book.getIsCheckedOut()) {
                     book.checkOut(name);
-                } else if (book.getIsCheckedOut()) {
-                    System.out.println("\nSorry, this book has been checked out by someone else");
+//                } else if (book.getIsCheckedOut()) {
+//                    System.out.println("\nSorry, this book has been checked out by someone else");
+//                    break;
                 }
             }
         }
     }
 
+//    public static void checkIn() {
+//
+//    }
 
     // Displays the loading bar when generating information.
     public static void loading() throws InterruptedException {
