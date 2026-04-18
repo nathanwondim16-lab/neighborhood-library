@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 public class Library {
     //Loading bar
@@ -5,26 +6,26 @@ public class Library {
 
     // Book inventory
     static Book[][] inventory = {
-            {new Book(1, "978-0061120084", "To Kill a Mockingbird")},
-            {new Book(2,  "978-0451524935", "1984")},
-            {new Book(3,  "978-0743273565", "The Great Gatsby")},
-            {new Book(4,  "978-0141439518", "Pride and Prejudice")},
-            {new Book(5,  "978-0062315007", "The Alchemist")},
-            {new Book(6,  "978-0307277671", "The Road")},
-            {new Book(7,  "978-0544003415", "The Hobbit")},
-            {new Book(8,  "978-0618640157", "The Lord of the Rings")},
-            {new Book(9,  "978-0060850524", "Brave New World")},
-            {new Book(10, "978-0140449136", "Crime and Punishment")},
-            {new Book(11, "978-0307387899", "The Kite Runner")},
-            {new Book(12, "978-0385472579", "Zen and the Art of Motorcycle Maintenance")},
-            {new Book(13, "978-0679783268", "Pride and Prejudice and Zombies")},
-            {new Book(14, "978-1400033416", "Life of Pi")},
-            {new Book(15, "978-0439139601", "Harry Potter and the Goblet of Fire")},
-            {new Book(16, "978-0439064873", "Harry Potter and the Chamber of Secrets")},
-            {new Book(17, "978-0439554930", "Harry Potter and the Sorcerer’s Stone")},
-            {new Book(18, "978-0316769488", "The Catcher in the Rye")},
-            {new Book(19, "978-0060850524", "Fahrenheit 451")},
-            {new Book(20, "978-0061122415", "Animal Farm")},
+            {new Book(1, "978-0061120084", "\033[1m\033[4mTo Kill a Mockingbird\033[0m")},
+            {new Book(2,  "978-0451524935", "\033[1m\033[4m1984\033[0m")},
+            {new Book(3,  "978-0743273565", "\033[1m\033[4mThe Great Gatsby\033[0m")},
+            {new Book(4,  "978-0141439518", "\033[1m\033[4mPride and Prejudice\033[0m")},
+            {new Book(5,  "978-0062315007", "\033[1m\033[4mThe Alchemist\033[0m")},
+            {new Book(6,  "978-0307277671", "\033[1m\033[4mThe Road\033[0m")},
+            {new Book(7,  "978-0544003415", "\033[1m\033[4mThe Hobbit\033[0m")},
+            {new Book(8,  "978-0618640157", "\033[1m\033[4mThe Lord of the Rings\033[0m")},
+            {new Book(9,  "978-0060850524", "\033[1m\033[4mBrave New World\033[0m")},
+            {new Book(10, "978-0140449136", "\033[1m\033[4mCrime and Punishment\033[0m")},
+            {new Book(11, "978-0307387899", "\033[1m\033[4mThe Kite Runner\033[0m")},
+            {new Book(12, "978-0385472579", "\033[1m\033[4mZen and the Art of Motorcycle Maintenance\033[0m")},
+            {new Book(13, "978-0679783268", "\033[1m\033[4mPride and Prejudice and Zombies\033[0m")},
+            {new Book(14, "978-1400033416", "\033[1m\033[4mLife of Pi\033[0m")},
+            {new Book(15, "978-0439139601", "\033[1m\033[4mHarry Potter and the Goblet of Fire\033[0m")},
+            {new Book(16, "978-0439064873", "\033[1m\033[4mHarry Potter and the Chamber of Secrets\033[0m")},
+            {new Book(17, "978-0439554930", "\033[1m\033[4mHarry Potter and the Sorcerer’s Stone\033[0m")},
+            {new Book(18, "978-0316769488", "\033[1m\033[4mThe Catcher in the Rye\033[0m")},
+            {new Book(19, "978-0060850524", "\033[1m\033[4mFahrenheit 451\033[0m")},
+            {new Book(20, "978-0061122415", "\033[1m\033[4mAnimal Farm\033[0m")},
     };
 
     public static void main(String[] args) throws InterruptedException {
@@ -40,7 +41,9 @@ public class Library {
             System.out.println("-----------------------------------");
             System.out.println("1) Show Available Books");
             System.out.println("2) Show Checked Out Books");
-            System.out.println("3) Exit");
+            System.out.println("3) Checkout a book");
+            System.out.println("4) Check in a book");
+            System.out.println("5) Exit");
             System.out.println("-----------------------------------");
             System.out.print("\n\nSelect an option: ");
             userChoice = Integer.parseInt(scanner.nextLine()); // Stores the option the user selected
@@ -55,26 +58,20 @@ public class Library {
                     displayCheckedOutBooks(inventory);
                     break;
                 case 3:
+                    loading();
+                    checkout();
+                    break;
+                case 4:
+                    // Add check in method here
+                    break;
+                case 5:
                     System.out.println("\nGoodbye for now 👋🏾");
                     break;
+                default:
+                    System.out.println("Please select a valid option");
+                    break;
             }
-
-            if(userChoice != 3) {
-                System.out.print("\nWould you like to checkout a book? ");
-                String checkInBook = scanner.nextLine();
-                if(checkInBook.equalsIgnoreCase("yes")) {
-                    System.out.println("Please provide the following details: ");
-                    System.out.print("Book ID: ");
-                    int id = scanner.nextInt(); // stores the ID of the book
-                    scanner.nextLine();
-                    checkout(id); // passes in the ID of the book the user wants to checkout
-                    // Add code that adds that book they checked in back into the inventory array.
-                }
-            }
-        } while(userChoice != 3);
-
-
-
+        } while(userChoice != 5);
     }
 
     // Displays available books
@@ -98,7 +95,7 @@ public class Library {
         for(Book[] books : inventory) {
             for(Book book : books) {
                 if(book.isCheckedOut()) {
-                    System.out.println(book);
+                    System.out.println(book + " ----> CHECKED OUT on " + LocalDate.now());
                 }
 
             }
@@ -106,11 +103,18 @@ public class Library {
     }
 
     // Checkout process
-    public static void checkout(int bookId) {
+    public static void checkout() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please provide the following details: ");
+        System.out.print("Book ID: ");
+        int bookID = scanner.nextInt();
+        scanner.nextLine();
         for(int i = 0; i < inventory.length; i++) {
             for(int j = 0; j < inventory[i].length; j++) {
-                if(inventory[i][j].getId() == bookId) {
+                if(inventory[i][j].getId() == bookID && !inventory[i][j].isCheckedOut()) {
                     inventory[i][j].setCheckedOut(true);
+                } else if (inventory[i][j].isCheckedOut()) {
+                    System.out.println("\nSorry, this book has been checked out by someone else");
                 }
             }
         }
