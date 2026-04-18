@@ -80,7 +80,7 @@ public class Library {
         System.out.println("Books Available to be checked out: ");
         for(Book[] books : inventory) {
             for(Book book : books) {
-                if(!book.isCheckedOut()) {
+                if(!book.getIsCheckedOut()) {
                     System.out.println(book);
                 }
 
@@ -94,8 +94,8 @@ public class Library {
         System.out.println("Books that are checked out: \n");
         for(Book[] books : inventory) {
             for(Book book : books) {
-                if(book.isCheckedOut()) {
-                    System.out.println(book + " ----> CHECKED OUT on " + LocalDate.now());
+                if(book.getIsCheckedOut()) {
+                    System.out.println(book + " ----> CHECKED OUT on " + LocalDate.now()); // Consider adding the name of the person who checked out that book.
                 }
 
             }
@@ -108,12 +108,14 @@ public class Library {
         System.out.println("Please provide the following details: ");
         System.out.print("Book ID: ");
         int bookID = scanner.nextInt();
+        System.out.print("Your name: ");
+        String name = scanner.nextLine();
         scanner.nextLine();
-        for(int i = 0; i < inventory.length; i++) {
-            for(int j = 0; j < inventory[i].length; j++) {
-                if(inventory[i][j].getId() == bookID && !inventory[i][j].isCheckedOut()) {
-                    inventory[i][j].setCheckedOut(true);
-                } else if (inventory[i][j].isCheckedOut()) {
+        for (Book[] books : inventory) {
+            for (Book book : books) {
+                if (book.getId() == bookID && !book.getIsCheckedOut()) {
+                    book.checkOut(name);
+                } else if (book.getIsCheckedOut()) {
                     System.out.println("\nSorry, this book has been checked out by someone else");
                 }
             }

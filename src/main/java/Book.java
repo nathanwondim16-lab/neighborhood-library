@@ -26,11 +26,11 @@ public class Book {
         this.id = id;
     }
 
-    public String getIsbn() {
+    public String getISBN() {
         return isbn;
     }
 
-    public void setIsbn(String isbn) {
+    public void setISBN(String isbn) {
         this.isbn = isbn;
     }
 
@@ -42,20 +42,12 @@ public class Book {
         this.title = title;
     }
 
-    public boolean isCheckedOut() {
+    public boolean getIsCheckedOut() {
         return isCheckedOut;
-    }
-
-    public void setCheckedOut(boolean checkedOut) {
-        isCheckedOut = checkedOut;
     }
 
     public String getCheckedOutTo() {
         return checkedOutTo;
-    }
-
-    public void setCheckedOutTo(String checkedOutTo) {
-        this.checkedOutTo = checkedOutTo;
     }
 
     public void checkOut(String name) {
