@@ -7,9 +7,11 @@ public class Book {
 
     // Default constructor
     public Book() {
-        
+        checkedOutTo = "";
+        isCheckedOut = false;
     }
 
+    // Constructor with args
     public Book(int bookId, String bookIsbn, String bookTitle) {
         id = bookId;
         title = bookTitle;
@@ -18,28 +20,17 @@ public class Book {
         this.checkedOutTo = "";
     }
 
+    // Getter methods
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getISBN() {
         return isbn;
     }
 
-    public void setISBN(String isbn) {
-        this.isbn = isbn;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public boolean getIsCheckedOut() {
@@ -50,6 +41,22 @@ public class Book {
         return checkedOutTo;
     }
 
+
+    // Setter methods
+    public void setISBN(String isbn) {
+        this.isbn = isbn;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    // Behavioral methods
     public void checkOut(String name) {
         isCheckedOut = true;
         checkedOutTo = name;

@@ -8,7 +8,7 @@ public class Library {
     static final char[] loadingBar = {'⠋','⠙','⠹','⠸','⠼','⠴','⠦','⠧','⠇','⠏'}; // Loading bar generated with assistance from ChatGPT (OpenAI)
 
     // Book inventory
-    static Book[][] inventory = {
+    static final Book[][] inventory = {
             {new Book(1, "978-0061120084", "\033[1m\033[4mTo Kill a Mockingbird\033[0m")},
             {new Book(2,  "978-0451524935", "\033[1m\033[4m1984\033[0m")},
             {new Book(3,  "978-0743273565", "\033[1m\033[4mThe Great Gatsby\033[0m")},
@@ -117,7 +117,7 @@ public class Library {
         }
     }
 
-    // Checkout process
+    // Method handles users checking out a book
     public static void checkOut() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please provide the following details of the book you wish to check out: ");
@@ -141,6 +141,7 @@ public class Library {
         }
     }
 
+    // Method handles users checking in a book
     public static void checkIn() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please provide the following details of the book you wish to check in: ");
@@ -154,7 +155,7 @@ public class Library {
             for(Book book : books) {
                 if(book.getId() == bookID && book.getCheckedOutTo().equalsIgnoreCase(name)) {
                     book.checkIn();
-                    System.out.println("Thank you for returning the book 😊");
+                    System.out.println("Thank you for returning " + book.getTitle() + " 😊");
                 }
             }
         }
@@ -165,7 +166,11 @@ public class Library {
         for(int i = 0; i < 100; i++) {
             char spinner = loadingBar[i % loadingBar.length]; // Resets back to the first element in the "loadingBar" array
             System.out.print("\rLoading " + spinner);
-            Thread.sleep(20);
+            try {
+                Thread.sleep(20);
+            } catch(InterruptedException e) {
+                System.out.println("Thread was interrupted");
+            }
         }
         System.out.print("\r "); // Removes previous loading bar
     }
