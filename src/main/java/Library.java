@@ -1,6 +1,8 @@
+import javax.swing.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 public class Library {
@@ -121,9 +123,16 @@ public class Library {
     public static void checkOut() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please provide the following details of the book you wish to check out: ");
-        System.out.print("Book ID: ");
-        int bookID = scanner.nextInt();
-        scanner.nextLine();
+        int bookID;
+        while(true) {
+            System.out.print("Book ID: ");
+            try {
+                bookID = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch(NumberFormatException e) {
+                System.out.println("Must enter a numerical value for Book ID");
+            }
+        }
         System.out.print("Your name: ");
         String name = scanner.nextLine();
         if(bookID > inventory.length) {
@@ -145,9 +154,16 @@ public class Library {
     public static void checkIn() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please provide the following details of the book you wish to check in: ");
-        System.out.print("Book ID: ");
-        int bookID = scanner.nextInt();
-        scanner.nextLine();
+        int bookID;
+        while(true) {
+            System.out.print("Book ID: ");
+            try {
+                bookID = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch(NumberFormatException e) {
+                System.out.println("Must enter a numerical value for Book ID");
+            }
+        }
         System.out.print("Your name: ");
         String name = scanner.nextLine();
         System.out.println();
